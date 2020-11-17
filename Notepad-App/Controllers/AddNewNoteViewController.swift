@@ -8,14 +8,21 @@
 import UIKit
 
 class AddNewNoteViewController: UIViewController {
-
+    @IBOutlet weak var newNoteTitleTextField: UIStackView!
+    
+    @IBOutlet weak var noteCategoryPickerView: UIPickerView!
+    @IBOutlet weak var noteColorThemeSelectorScrollView: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func saveNewNotePressed(_ sender: UIButton) {
+        // Code to save the note to persistant storage and redirect the user to NoteEditViewController
+    }
+    
     /*
     // MARK: - Navigation
 

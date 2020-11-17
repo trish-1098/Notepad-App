@@ -8,6 +8,8 @@
 import UIKit
 
 class NoteViewController: UITableViewController {
+    
+    var notesArray = ["N-1","N-2","N-3"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +25,14 @@ class NoteViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return notesArray.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "specificNoteCell", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = notesArray[indexPath.row]
 
         return cell
     }
@@ -40,6 +42,7 @@ class NoteViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
     @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
     }
     

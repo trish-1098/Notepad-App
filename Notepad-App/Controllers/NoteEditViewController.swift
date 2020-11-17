@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoteEditViewController: UITableViewController {
+class NoteEditViewController: UIViewController {
 
     @IBOutlet weak var noteTitleTextField: UITextField!
     @IBOutlet weak var noteEditTextView: UITextView!
@@ -15,24 +15,33 @@ class NoteEditViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    // MARK: - Table view data source
-
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
+    
     @IBAction func optionsButtonPressed(_ sender: UIBarButtonItem) {
         // present options in an alert (or find a new way) to save, edit, cancel, delete
+        let noteOptionsAlert = UIAlertController(title: "Options", message: "", preferredStyle: .alert)
+        
+        let alertActionsArray : [UIAlertAction] = [
+            UIAlertAction(title: "Save", style: .default, handler: { (_) in
+                // Save notes to persistant storage Code
+            }),
+            UIAlertAction(title: "Add Image", style: .default, handler: { (_) in
+                // Adding image from Photos Code
+            }),
+            UIAlertAction(title: "Share", style: .default, handler: { (_) in
+                // Sharing Code
+            }),
+            UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
+                noteOptionsAlert.dismiss(animated: true, completion: nil)
+            })
+        ]
+        
+        for alertAction in alertActionsArray {
+            noteOptionsAlert.addAction(alertAction)
+        }
+        
+        noteOptionsAlert.preferredAction = noteOptionsAlert.actions[0]
+        
+        self.present(noteOptionsAlert, animated: true, completion: nil)
     }
     
     // MARK: - Navigation

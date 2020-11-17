@@ -67,6 +67,7 @@
 		091251F42560DEFD0005BAB7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				09FB6231255F859E00D53122 /* Notepad_App.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -98,7 +99,6 @@
 				09FB6234255F85A500D53122 /* Assets.xcassets */,
 				09FB6236255F85A500D53122 /* LaunchScreen.storyboard */,
 				09FB6239255F85A500D53122 /* Info.plist */,
-				09FB6231255F859E00D53122 /* Notepad_App.xcdatamodeld */,
 			);
 			path = "Notepad-App";
 			sourceTree = "<group>";

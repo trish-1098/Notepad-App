@@ -48,7 +48,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="MyJ-nV-UJV">
                             <connections>
                                 <action selector="addCategoryPressed:" destination="w9x-kS-Jfx" id="tEL-Nf-O2N"/>
-                                <segue destination="gVe-Jz-TIp" kind="show" id="hYb-sf-bEM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -214,11 +213,14 @@
                                         <rect key="frame" x="0.0" y="714" width="414" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-f2-jAa">
-                                                <rect key="frame" x="170" y="9" width="74" height="42"/>
+                                                <rect key="frame" x="152.5" y="9" width="109" height="42"/>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="25"/>
-                                                <state key="normal" title="Button">
+                                                <state key="normal" title="Save Note">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="saveNewNotePressed:" destination="Vob-SD-uKv" eventType="touchUpInside" id="tOf-NX-oqK"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" name="Button Background"/>
@@ -245,6 +247,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hOA-p4-9ya"/>
+                    <connections>
+                        <outlet property="newNoteTitleTextField" destination="Jue-cT-OIw" id="f7c-hk-SA5"/>
+                        <outlet property="noteCategoryPickerView" destination="a2t-VY-tzh" id="SwR-y3-uaA"/>
+                        <outlet property="noteColorThemeSelectorScrollView" destination="23q-jQ-2zC" id="4QM-my-bdv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B01-VG-7hp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -271,14 +278,11 @@
             <point key="canvasLocation" x="-1278" y="79"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="r6K-bn-3q0"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
         <namedColor name="Button Background">
-            <color red="0.89490988819869521" green="0.66697512059964636" blue="0.3903463079352264" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.89499998092651367" green="0.66699999570846558" blue="0.38999998569488525" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
