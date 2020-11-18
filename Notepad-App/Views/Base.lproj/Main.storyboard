@@ -174,81 +174,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jue-cT-OIw">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4sC-DG-IRG">
+                                <rect key="frame" x="-20" y="88" width="454" height="774"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Note Title..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v2V-tl-cEp">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="UmU-xE-VUk"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a2t-VY-tzh">
-                                        <rect key="frame" x="0.0" y="156.5" width="414" height="216"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </pickerView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7Y-QV-a91">
-                                        <rect key="frame" x="0.0" y="479.5" width="414" height="50"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jue-cT-OIw">
+                                        <rect key="frame" x="20" y="242" width="414" height="290"/>
                                         <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23q-jQ-2zC">
-                                                <rect key="frame" x="47" y="0.0" width="320" height="50"/>
-                                                <viewLayoutGuide key="contentLayoutGuide" id="gJR-d7-fvg"/>
-                                                <viewLayoutGuide key="frameLayoutGuide" id="ioL-99-DhS"/>
-                                            </scrollView>
+                                            <textField opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Note Title..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v2V-tl-cEp">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="UmU-xE-VUk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a2t-VY-tzh">
+                                                <rect key="frame" x="0.0" y="60" width="414" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="tUJ-7K-xth"/>
+                                                </constraints>
+                                            </pickerView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7Y-QV-a91">
+                                                <rect key="frame" x="0.0" y="170" width="414" height="50"/>
+                                                <subviews>
+                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23q-jQ-2zC">
+                                                        <rect key="frame" x="47" y="0.0" width="320" height="50"/>
+                                                        <viewLayoutGuide key="contentLayoutGuide" id="gJR-d7-fvg"/>
+                                                        <viewLayoutGuide key="frameLayoutGuide" id="ioL-99-DhS"/>
+                                                    </scrollView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="a1j-uu-TK7"/>
+                                                    <constraint firstItem="23q-jQ-2zC" firstAttribute="centerY" secondItem="o7Y-QV-a91" secondAttribute="centerY" id="cTC-Tw-eYy"/>
+                                                    <constraint firstAttribute="trailing" secondItem="23q-jQ-2zC" secondAttribute="trailing" id="gYH-nE-pkN"/>
+                                                    <constraint firstItem="23q-jQ-2zC" firstAttribute="leading" secondItem="o7Y-QV-a91" secondAttribute="leading" id="k9W-S4-hKt"/>
+                                                    <constraint firstAttribute="trailing" secondItem="23q-jQ-2zC" secondAttribute="trailing" id="tGk-fP-MKP"/>
+                                                    <constraint firstItem="23q-jQ-2zC" firstAttribute="centerX" secondItem="o7Y-QV-a91" secondAttribute="centerX" id="vXe-qM-CQE"/>
+                                                    <constraint firstItem="23q-jQ-2zC" firstAttribute="leading" secondItem="o7Y-QV-a91" secondAttribute="leading" id="y8Z-qJ-hEw"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZB-WV-2Ie">
+                                                <rect key="frame" x="0.0" y="230" width="414" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-f2-jAa">
+                                                        <rect key="frame" x="152.5" y="9" width="109" height="42"/>
+                                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="25"/>
+                                                        <state key="normal" title="Save Note">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="saveNewNotePressed:" destination="Vob-SD-uKv" eventType="touchUpInside" id="tOf-NX-oqK"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" name="Button Background"/>
+                                                <constraints>
+                                                    <constraint firstItem="hPD-f2-jAa" firstAttribute="centerX" secondItem="PZB-WV-2Ie" secondAttribute="centerX" id="09z-ES-ZLV"/>
+                                                    <constraint firstAttribute="height" constant="60" id="Vj9-vu-Fm3"/>
+                                                    <constraint firstItem="hPD-f2-jAa" firstAttribute="centerY" secondItem="PZB-WV-2Ie" secondAttribute="centerY" id="XAf-TQ-EoC"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="0.26762572029568504" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="a1j-uu-TK7"/>
-                                            <constraint firstItem="23q-jQ-2zC" firstAttribute="centerY" secondItem="o7Y-QV-a91" secondAttribute="centerY" id="cTC-Tw-eYy"/>
-                                            <constraint firstAttribute="trailing" secondItem="23q-jQ-2zC" secondAttribute="trailing" id="gYH-nE-pkN"/>
-                                            <constraint firstItem="23q-jQ-2zC" firstAttribute="leading" secondItem="o7Y-QV-a91" secondAttribute="leading" id="k9W-S4-hKt"/>
-                                            <constraint firstAttribute="trailing" secondItem="23q-jQ-2zC" secondAttribute="trailing" id="tGk-fP-MKP"/>
-                                            <constraint firstItem="23q-jQ-2zC" firstAttribute="centerX" secondItem="o7Y-QV-a91" secondAttribute="centerX" id="vXe-qM-CQE"/>
-                                            <constraint firstItem="23q-jQ-2zC" firstAttribute="leading" secondItem="o7Y-QV-a91" secondAttribute="leading" id="y8Z-qJ-hEw"/>
+                                            <constraint firstAttribute="bottom" secondItem="PZB-WV-2Ie" secondAttribute="bottom" id="e0l-4X-pSX"/>
                                         </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZB-WV-2Ie">
-                                        <rect key="frame" x="0.0" y="714" width="414" height="60"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-f2-jAa">
-                                                <rect key="frame" x="152.5" y="9" width="109" height="42"/>
-                                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="25"/>
-                                                <state key="normal" title="Save Note">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="saveNewNotePressed:" destination="Vob-SD-uKv" eventType="touchUpInside" id="tOf-NX-oqK"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" name="Button Background"/>
-                                        <constraints>
-                                            <constraint firstItem="hPD-f2-jAa" firstAttribute="centerX" secondItem="PZB-WV-2Ie" secondAttribute="centerX" id="09z-ES-ZLV"/>
-                                            <constraint firstAttribute="height" constant="60" id="Vj9-vu-Fm3"/>
-                                            <constraint firstItem="hPD-f2-jAa" firstAttribute="centerY" secondItem="PZB-WV-2Ie" secondAttribute="centerY" id="XAf-TQ-EoC"/>
-                                        </constraints>
-                                    </view>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="0.26762572029568504" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="PZB-WV-2Ie" secondAttribute="bottom" id="e0l-4X-pSX"/>
+                                    <constraint firstItem="Jue-cT-OIw" firstAttribute="centerY" secondItem="4sC-DG-IRG" secondAttribute="centerY" id="3BE-JQ-ci0"/>
+                                    <constraint firstItem="Jue-cT-OIw" firstAttribute="centerX" secondItem="4sC-DG-IRG" secondAttribute="centerX" id="G9H-1o-ynJ"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IvA-xf-Ge4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="IvA-xf-Ge4" firstAttribute="bottom" secondItem="Jue-cT-OIw" secondAttribute="bottom" id="CIf-o9-hKM"/>
-                            <constraint firstItem="Jue-cT-OIw" firstAttribute="top" secondItem="IvA-xf-Ge4" secondAttribute="top" id="QTo-eE-KbQ"/>
-                            <constraint firstItem="Jue-cT-OIw" firstAttribute="leading" secondItem="IvA-xf-Ge4" secondAttribute="leading" id="X0D-fi-j43"/>
-                            <constraint firstItem="IvA-xf-Ge4" firstAttribute="trailing" secondItem="Jue-cT-OIw" secondAttribute="trailing" id="q9Q-vS-2QK"/>
+                            <constraint firstItem="IvA-xf-Ge4" firstAttribute="bottom" secondItem="4sC-DG-IRG" secondAttribute="bottom" id="070-TC-lZS"/>
+                            <constraint firstItem="4sC-DG-IRG" firstAttribute="centerX" secondItem="MSU-cW-MJw" secondAttribute="centerX" id="0LM-Ka-b5U"/>
+                            <constraint firstItem="4sC-DG-IRG" firstAttribute="centerY" secondItem="MSU-cW-MJw" secondAttribute="centerY" id="M5H-lC-ajd"/>
+                            <constraint firstItem="4sC-DG-IRG" firstAttribute="top" secondItem="IvA-xf-Ge4" secondAttribute="top" id="lcy-qn-xp5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hOA-p4-9ya"/>
                     <connections>
-                        <outlet property="newNoteTitleTextField" destination="Jue-cT-OIw" id="f7c-hk-SA5"/>
+                        <outlet property="newNoteTitleTextField" destination="v2V-tl-cEp" id="SAe-3k-AKf"/>
                         <outlet property="noteCategoryPickerView" destination="a2t-VY-tzh" id="SwR-y3-uaA"/>
                         <outlet property="noteColorThemeSelectorScrollView" destination="23q-jQ-2zC" id="4QM-my-bdv"/>
                     </connections>

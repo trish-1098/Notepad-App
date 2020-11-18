@@ -8,8 +8,8 @@
 import UIKit
 
 class AddNewNoteViewController: UIViewController {
-    @IBOutlet weak var newNoteTitleTextField: UIStackView!
     
+    @IBOutlet weak var newNoteTitleTextField: UITextField!
     @IBOutlet weak var noteCategoryPickerView: UIPickerView!
     @IBOutlet weak var noteColorThemeSelectorScrollView: UIScrollView!
     
