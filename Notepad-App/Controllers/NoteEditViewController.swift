@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NoteEditViewController: UIViewController {
 
@@ -14,6 +15,12 @@ class NoteEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // if came from direct selection of note then keep back button active
+        /*
+         Code for that logic here
+         */
+        // otherwise
+        navigationController?.navigationItem.hidesBackButton = true
     }
     
     @IBAction func optionsButtonPressed(_ sender: UIBarButtonItem) {

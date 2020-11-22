@@ -6,46 +6,43 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class NoteCategoryViewController: UITableViewController {
     
-    var noteCategoryArray = [NoteCategory]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    let realmDB = try! Realm()
+    
+    var noteCategoryArray : Results<NoteCategory>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
+        print(realmDB.configuration.fileURL)
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return noteCategoryArray.count
+        return noteCategoryArray?.count ?? 1
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCategoryCell", for: indexPath)
-
-        cell.textLabel?.text = noteCategoryArray[indexPath.row].categoryName
-        if let cellBackgroundTheme = noteCategoryArray[indexPath.row].categoryThemeColor {
-            if cellBackgroundTheme == ".red" {
-                cell.backgroundColor = .systemRed
-            } else if cellBackgroundTheme == ".purple" {
-                cell.backgroundColor = .systemPurple
-            }
+        
+        if let noteCategory = noteCategoryArray?[indexPath.row] {
+            cell.textLabel?.text = noteCategory.categoryName
+            cell.backgroundColor = UIColor(named: noteCategory.categoryThemeColor)
+        } else {
+            cell.textLabel?.text = "No Categories Added Yet"
         }
-        cell.alpha = 0.8
-
         return cell
     }
     
     //MARK: - Data Manipulation Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: "openNoteListSegue", sender: self)
     }
     
     
@@ -56,11 +53,10 @@ class NoteCategoryViewController: UITableViewController {
         }
         newCategoryAlert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (_) in
             let newCategoryName = newCategoryAlert.textFields?[0].text
-            let newCategory = NoteCategory(context: self.context)
-            newCategory.categoryName = newCategoryName
-            newCategory.categoryThemeColor = ".purple"
-            self.noteCategoryArray.append(newCategory)
-            self.saveNewNoteCategory()
+            let newCategory = NoteCategory()
+            newCategory.categoryName = newCategoryName ?? ""
+            newCategory.categoryThemeColor = ".systemGray" // FOR NOW
+            self.saveNewNoteCategory(newCategory)
         }))
         newCategoryAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
             newCategoryAlert.dismiss(animated: true, completion: nil)
@@ -71,25 +67,31 @@ class NoteCategoryViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if  segue.identifier == "openNoteListSegue" {
+            let destinationVC = segue.destination as! NoteViewController
+            if let indexForCategoryPressed = tableView.indexPathForSelectedRow?.row {
+                if let noteCategorySelected = noteCategoryArray?[indexForCategoryPressed] {
+                    destinationVC.notesCategory = noteCategorySelected
+                }
+            }
+        }
     }
 
     func loadCategories() {
-        let req : NSFetchRequest<NoteCategory> = NoteCategory.fetchRequest()
         do {
-            noteCategoryArray = try context.fetch(req)
-        } catch {
-            print("Error loading categories : \(error)")
+            noteCategoryArray = realmDB.objects(NoteCategory.self)
+            self.tableView.reloadData()
         }
     }
     
-    func saveNewNoteCategory() {
+    func saveNewNoteCategory(_ newCategory : NoteCategory) {
         do {
-            try context.save()
-            tableView.reloadData()
+            try realmDB.write {
+                realmDB.add(newCategory)
+            }
+            self.tableView.reloadData()
         } catch {
-            print("Error saving category : \(error)")
+            print("Error saving Category: \(error)")
         }
     }
 }

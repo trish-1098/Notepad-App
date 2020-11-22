@@ -6,33 +6,43 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NoteViewController: UITableViewController {
     
-    var notesArray = ["N-1","N-2","N-3"]
-
+    var notesArray : Results<NoteItem>?
+    var notesCategory : NoteCategory?
+    
+    let realmDB = try! Realm()
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        loadNotes()
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        loadNotes()
+        if let noteCategory = notesCategory {
+            tableView.backgroundColor = UIColor(named: noteCategory.categoryThemeColor)
+            navigationController?.title = noteCategory.categoryName
+        } else {
+            tableView.backgroundColor = .black
+        }
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return notesArray.count
+        return notesArray?.count ?? 1
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "specificNoteCell", for: indexPath)
 
-        cell.textLabel?.text = notesArray[indexPath.row]
+        cell.textLabel?.text = notesArray?[indexPath.row].noteTitle
+        cell.detailTextLabel?.text = notesArray?[indexPath.row].noteText
 
         return cell
     }
@@ -40,20 +50,16 @@ class NoteViewController: UITableViewController {
     //MARK: - Data Manipulation Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: "editNoteSegue", sender: self)
     }
     
     @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "addNewNoteSegue", sender: self)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func loadNotes() {
+        notesArray = realmDB.objects(NoteItem.self)
+        self.tableView.reloadData()
     }
-    */
 
 }

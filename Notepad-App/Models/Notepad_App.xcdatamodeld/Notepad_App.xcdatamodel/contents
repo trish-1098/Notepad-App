@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20B29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="NoteCategory" representedClassName="NoteCategory" syncable="YES" codeGenerationType="class">
+    <entity name="NoteCategory" representedClassName="NoteCategory" syncable="YES">
         <attribute name="categoryName" attributeType="String"/>
         <attribute name="categoryThemeColor" attributeType="String"/>
         <relationship name="categoryNotes" toMany="YES" deletionRule="Nullify" destinationEntity="NoteItem" inverseName="noteCategory" inverseEntity="NoteItem"/>
     </entity>
-    <entity name="NoteItem" representedClassName="NoteItem" syncable="YES" codeGenerationType="class">
+    <entity name="NoteItem" representedClassName="NoteItem" syncable="YES">
         <attribute name="noteText" optional="YES" attributeType="String"/>
         <attribute name="noteTitle" attributeType="String"/>
         <relationship name="noteCategory" maxCount="1" deletionRule="Nullify" destinationEntity="NoteCategory" inverseName="categoryNotes" inverseEntity="NoteCategory"/>
     </entity>
     <elements>
-        <element name="NoteCategory" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="NoteItem" positionX="207.9298095703125" positionY="23.90866088867188" width="128" height="88"/>
+        <element name="NoteCategory" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="NoteItem" positionX="207.9298095703125" positionY="23.90866088867188" width="128" height="74"/>
     </elements>
 </model>
