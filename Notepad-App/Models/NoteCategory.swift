@@ -10,6 +10,6 @@ import RealmSwift
 
 class NoteCategory : Object {
     @objc dynamic var categoryName : String = ""
-    @objc dynamic var categoryThemeColor : String = ".systemGray"
+    @objc dynamic var categoryThemeColor : String = ""
     let categoryNotes = List<NoteItem>()
 }

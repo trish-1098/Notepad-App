@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class NoteCategoryViewController: UITableViewController {
     
@@ -18,6 +19,7 @@ class NoteCategoryViewController: UITableViewController {
         super.viewDidLoad()
         loadCategories()
         print(realmDB.configuration.fileURL)
+        tableView.rowHeight = 100
     }
 
     // MARK: - Table view data source
@@ -32,7 +34,16 @@ class NoteCategoryViewController: UITableViewController {
         
         if let noteCategory = noteCategoryArray?[indexPath.row] {
             cell.textLabel?.text = noteCategory.categoryName
-            cell.backgroundColor = UIColor(named: noteCategory.categoryThemeColor)
+            let cellRect = tableView.convert(tableView.rectForRow(at: indexPath), to: tableView.superview)
+            // Find a way to change it according to appearance
+            cell.backgroundColor = GradientColor(.leftToRight, frame: cellRect, colors: [
+                UIColor(hexString: noteCategory.categoryThemeColor)!,
+//                UIColor(hexString: (noteCategoryArray?[0].categoryThemeColor)!)!,
+                .label,
+            ])
+            cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
+            // In SHredPreferences for user choice of theme just set in the database the color Value of first category in the list
+//            cell.backgroundColor = UIColor(hexString: noteCategory.categoryThemeColor)
         } else {
             cell.textLabel?.text = "No Categories Added Yet"
         }
@@ -54,8 +65,18 @@ class NoteCategoryViewController: UITableViewController {
         newCategoryAlert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (_) in
             let newCategoryName = newCategoryAlert.textFields?[0].text
             let newCategory = NoteCategory()
-            newCategory.categoryName = newCategoryName ?? ""
-            newCategory.categoryThemeColor = ".systemGray" // FOR NOW
+            newCategory.categoryName = newCategoryName!
+            newCategory.categoryThemeColor = UIColor.randomFlat().hexValue()
+//            if let numOfCategories = self.noteCategoryArray?.count {
+//                if numOfCategories > 1 {
+//                    let newCategoryColor = ComplementaryFlatColorOf(UIColor(hexString: self.noteCategoryArray![(numOfCategories - 1)].categoryThemeColor)!)
+//                    newCategory.categoryThemeColor = newCategoryColor.hexValue()
+//                } else {
+//                    // Later add Shared Preferences in the top for choosing theme and a new button to add categories
+//                     // FOR NOW
+//                }
+//            }
+            
             self.saveNewNoteCategory(newCategory)
         }))
         newCategoryAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in

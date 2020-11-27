@@ -11,6 +11,7 @@
 		091251FA2560DFD50005BAB7 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091251F92560DFD50005BAB7 /* NoteViewController.swift */; };
 		091251FD2560DFF60005BAB7 /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091251FC2560DFF60005BAB7 /* NoteEditViewController.swift */; };
 		091252002560EC910005BAB7 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091251FF2560EC910005BAB7 /* AddNewNoteViewController.swift */; };
+		097FF26C2570BB9500D395BF /* ToolFunctionsAndConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FF26B2570BB9500D395BF /* ToolFunctionsAndConstants.swift */; };
 		09F5EB70256A743B0070546B /* NoteCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F5EB6F256A743B0070546B /* NoteCategory.swift */; };
 		09F5EB74256A75930070546B /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F5EB73256A75930070546B /* NoteItem.swift */; };
 		09FB6229255F859E00D53122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FB6228255F859E00D53122 /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 		091251F92560DFD50005BAB7 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		091251FC2560DFF60005BAB7 /* NoteEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
 		091251FF2560EC910005BAB7 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		097FF26B2570BB9500D395BF /* ToolFunctionsAndConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolFunctionsAndConstants.swift; sourceTree = "<group>"; };
 		09F5EB6F256A743B0070546B /* NoteCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCategory.swift; sourceTree = "<group>"; };
 		09F5EB73256A75930070546B /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
 		09FB6225255F859E00D53122 /* Notepad-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notepad-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +111,7 @@
 				09FB6234255F85A500D53122 /* Assets.xcassets */,
 				09FB6236255F85A500D53122 /* LaunchScreen.storyboard */,
 				09FB6239255F85A500D53122 /* Info.plist */,
+				097FF26B2570BB9500D395BF /* ToolFunctionsAndConstants.swift */,
 			);
 			path = "Notepad-App";
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			files = (
 				091251FD2560DFF60005BAB7 /* NoteEditViewController.swift in Sources */,
 				091251F72560DFB60005BAB7 /* NoteCategoryViewController.swift in Sources */,
+				097FF26C2570BB9500D395BF /* ToolFunctionsAndConstants.swift in Sources */,
 				09FB6229255F859E00D53122 /* AppDelegate.swift in Sources */,
 				09F5EB74256A75930070546B /* NoteItem.swift in Sources */,
 				09FB622B255F859E00D53122 /* SceneDelegate.swift in Sources */,

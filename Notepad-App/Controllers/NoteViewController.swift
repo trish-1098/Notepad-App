@@ -11,7 +11,12 @@ import RealmSwift
 class NoteViewController: UITableViewController {
     
     var notesArray : Results<NoteItem>?
-    var notesCategory : NoteCategory?
+    
+    var notesCategory : NoteCategory? {
+        didSet {
+            loadNotes()
+        }
+    }
     
     let realmDB = try! Realm()
     
@@ -21,7 +26,6 @@ class NoteViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadNotes()
         if let noteCategory = notesCategory {
             tableView.backgroundColor = UIColor(named: noteCategory.categoryThemeColor)
             navigationController?.title = noteCategory.categoryName
@@ -29,7 +33,15 @@ class NoteViewController: UITableViewController {
             tableView.backgroundColor = .black
         }
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let navController = navigationController else {
+            fatalError()
+        }
+        title = notesCategory?.categoryName
+        navController.navigationBar.barTintColor = ToolFunctionsAndConstants.convertToUIColor(from: notesCategory!.categoryThemeColor)
+        
+    }
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
