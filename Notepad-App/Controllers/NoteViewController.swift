@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class NoteViewController: UITableViewController {
     
@@ -26,12 +27,7 @@ class NoteViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let noteCategory = notesCategory {
-            tableView.backgroundColor = UIColor(named: noteCategory.categoryThemeColor)
-            navigationController?.title = noteCategory.categoryName
-        } else {
-            tableView.backgroundColor = .black
-        }
+        tableView.separatorStyle = .none
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,8 +35,16 @@ class NoteViewController: UITableViewController {
             fatalError()
         }
         title = notesCategory?.categoryName
-        navController.navigationBar.barTintColor = ToolFunctionsAndConstants.convertToUIColor(from: notesCategory!.categoryThemeColor)
+        navController.navigationBar.backgroundColor = ToolFunctionsAndConstants.convertToUIColor(from: (notesCategory?.categoryThemeColor)!)
+        tableView.backgroundColor = GradientColor(.diagonal,
+                                                  frame: tableView.bounds,
+                                                  colors: [
+                                                    UIColor(hexString: notesCategory?.categoryThemeColor ?? "#000000")!,
+                                                    .systemBackground
+                                                  ])
+            
         
+        tableView.reloadData()
     }
     // MARK: - Table view data source
 
@@ -53,9 +57,13 @@ class NoteViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "specificNoteCell", for: indexPath)
 
-        cell.textLabel?.text = notesArray?[indexPath.row].noteTitle
-        cell.detailTextLabel?.text = notesArray?[indexPath.row].noteText
-
+        if let noteItem = notesArray?[indexPath.row] {
+            cell.textLabel?.text = noteItem.noteTitle
+            cell.detailTextLabel?.text = "Last Edited : \(DateFormatter.localizedString(from: noteItem.dateLastEdited!, dateStyle: .short, timeStyle: .short))"
+        }
+        
+        
+        cell.backgroundColor = .clear
         return cell
     }
     
@@ -66,12 +74,38 @@ class NoteViewController: UITableViewController {
     }
     
     @IBAction func addNotePressed(_ sender: UIBarButtonItem) {
+//        ToolFunctionsAndConstants.noteViewSegueIdentifyingConstant = true
         performSegue(withIdentifier: "addNewNoteSegue", sender: self)
     }
     
     func loadNotes() {
-        notesArray = realmDB.objects(NoteItem.self)
+        notesArray = notesCategory?.categoryNotes.sorted(byKeyPath: "noteTitle") // For Now (later by date created or last edited
+        print(notesArray)
         self.tableView.reloadData()
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addNewNoteSegue" {
+            let desVC = segue.destination as! AddNewNoteViewController
+            print("<-- Category Set -->")
+            desVC.currentCategory = notesCategory
+            desVC.isCategorySelected = true
+        } else if segue.identifier == "editNoteSegue" {
+            let desVC = segue.destination as! NoteEditViewController
+            if let selectedNoteIndex = tableView.indexPathForSelectedRow {
+                desVC.selectedNoteItem = notesArray?[selectedNoteIndex.row]
+            }
+            
+        }
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        tableView.reloadData()
+        tableView.backgroundColor = GradientColor(.diagonal,
+                                                  frame: tableView.bounds,
+                                                  colors: [
+                                                    UIColor(hexString: notesCategory?.categoryThemeColor ?? "#000000")!,
+                                                    .systemBackground
+                                                  ])
+    }
 }

@@ -35,12 +35,21 @@ class NoteCategoryViewController: UITableViewController {
         if let noteCategory = noteCategoryArray?[indexPath.row] {
             cell.textLabel?.text = noteCategory.categoryName
             let cellRect = tableView.convert(tableView.rectForRow(at: indexPath), to: tableView.superview)
-            // Find a way to change it according to appearance
+            // Find a way to change it according to dark/light appearance of the device
+            
+//            let currentUserInterfaceAppearance = traitCollection.userInterfaceStyle
+//            var cellGradientCombinationColor : UIColor?
+//            if currentUserInterfaceAppearance == .light {
+//                cellGradientCombinationColor = .white
+//            } else {
+//                cellGradientCombinationColor = .systemBackground
+//            }
             cell.backgroundColor = GradientColor(.leftToRight, frame: cellRect, colors: [
                 UIColor(hexString: noteCategory.categoryThemeColor)!,
 //                UIColor(hexString: (noteCategoryArray?[0].categoryThemeColor)!)!,
-                .label,
+                .systemBackground
             ])
+            cell.tintColor = .systemBackground
             cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
             // In SHredPreferences for user choice of theme just set in the database the color Value of first category in the list
 //            cell.backgroundColor = UIColor(hexString: noteCategory.categoryThemeColor)
@@ -93,6 +102,7 @@ class NoteCategoryViewController: UITableViewController {
             if let indexForCategoryPressed = tableView.indexPathForSelectedRow?.row {
                 if let noteCategorySelected = noteCategoryArray?[indexForCategoryPressed] {
                     destinationVC.notesCategory = noteCategorySelected
+                    print(noteCategorySelected.categoryName)
                 }
             }
         }
@@ -114,5 +124,9 @@ class NoteCategoryViewController: UITableViewController {
         } catch {
             print("Error saving Category: \(error)")
         }
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        tableView.reloadData()
     }
 }

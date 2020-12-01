@@ -7,43 +7,103 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class AddNewNoteViewController: UIViewController {
     
     @IBOutlet weak var newNoteTitleTextField: UITextField!
     @IBOutlet weak var noteCategoryPickerView: UIPickerView!
-    @IBOutlet weak var noteColorThemeSelectorScrollView: UIScrollView!
+    @IBOutlet weak var buttonBackgroundView: UIView!
+    @IBOutlet weak var addNoteStackView: UIStackView!
+    @IBOutlet weak var saveNoteButtonOutlet: UIButton!
     
     let realmDB = try! Realm()
-    
     var categoryArray : Results<NoteCategory>?
-    var indexOfSelectedCategoryByUser : Int = 0
+    var isCategorySelected : Bool = false
+    
+    var currentCategory : NoteCategory? {
+        didSet {
+            print("<-- Inside didSet Category -->")
+            print(categoryArray?.index(of: currentCategory!))
+            print(currentCategory?.categoryName)
+            if let preSelectedCategoryIndex = categoryArray?.firstIndex(of: (currentCategory)!) {
+                print(preSelectedCategoryIndex)
+                noteCategoryPickerView.selectRow(preSelectedCategoryIndex, inComponent: 0, animated: true)
+                noteCategoryPickerView.isUserInteractionEnabled = false
+            }
+//            if let currentCat = currentCategory {
+//                print("<-- Current Category Block -->")
+//                
+//                print(themeColorOfThisView)
+//                buttonBackgroundView.backgroundColor = themeColorOfThisView
+//                noteCategoryPickerView.backgroundColor = GradientColor(.topToBottom, frame: view.bounds, colors: [
+//                    themeColorOfThisView!,
+//                    .systemBackground
+//                ])
+//            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryArray = realmDB.objects(NoteCategory.self)
         noteCategoryPickerView.dataSource = self
         noteCategoryPickerView.delegate = self
+        noteCategoryPickerView.isUserInteractionEnabled = false
+        
+        
+//        if !self.isCategorySelected {
+//            currentCategory = categoryArray?[0]
+//        }
         
         
         // show  category selected if coming from noteview, othervwise make it random
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        guard let navController = navigationController else {
+            fatalError()
+        }
+        let themeColorOfThisView = UIColor(hexString: currentCategory?.categoryThemeColor ?? "#FFFFFF")
+        navController.navigationBar.backgroundColor = themeColorOfThisView?.lighten(byPercentage: 0.9)
+        navController.navigationBar.tintColor = .label
+        
+        addNoteStackView.backgroundColor = themeColorOfThisView
+        buttonBackgroundView.backgroundColor = themeColorOfThisView?.lighten(byPercentage: 0.9)
+        saveNoteButtonOutlet.tintColor =
+            ContrastColorOf((buttonBackgroundView.backgroundColor)!, returnFlat: true).lighten(byPercentage: 50)
+        let categoryNameArray = categoryArray // Start here
+        noteCategoryPickerView.selectRow(0, inComponent: 0, animated: true)
+        noteCategoryPickerView.isUserInteractionEnabled = false
+        
+    }
     @IBAction func saveNewNotePressed(_ sender: UIButton) {
-        if let noteTitle = newNoteTitleTextField.text{
-            let newNoteItem = NoteItem()
-            newNoteItem.noteTitle = noteTitle
-            newNoteItem.noteText = ""
-//            newNoteItem.noteCategory = categoryArray[indexOfSelectedCategoryByUser]
-            let noteSavedAlert = UIAlertController(title: noteTitle, message: "Note Saved", preferredStyle: .alert)
+        
+        let noteSavedAlert = UIAlertController(title: newNoteTitleTextField.text, message: "Note Saved", preferredStyle: .alert)
             noteSavedAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
-                self.saveNewNote(newNoteItem)
-                noteSavedAlert.dismiss(animated: true) {
-                    self.performSegue(withIdentifier: "editNewNoteSegue", sender: nil)
+                
+                if self.isCategorySelected {
+                    if let noteTitle = self.newNoteTitleTextField.text {
+                        let newNoteItem = NoteItem()
+                        newNoteItem.noteTitle = noteTitle
+                        newNoteItem.noteText = ""
+                        newNoteItem.dateCreated = Date()
+                        newNoteItem.dateLastEdited = Date()
+                        do {
+                            try self.realmDB.write {
+                                self.currentCategory?.categoryNotes.append(newNoteItem)
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        } catch {
+                            print("Error saving New Note: \(error)")
+                        }
+                        print(newNoteItem.noteCategory)
+                        noteSavedAlert.dismiss(animated: true, completion: nil)
+                    }
                 }
             }))
             self.present(noteSavedAlert, animated: true, completion: nil)
-        }
     }
     
     /*
@@ -55,24 +115,16 @@ class AddNewNoteViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func saveNewNote(_ newNote : NoteItem) {
-        do {
-            try realmDB.write {
-                realmDB.add(newNote)
-                print("New Notge Saved")
-            }
-        } catch {
-            print("Error saving new note : \(error)")
-        }
-    }
 
 }
 
 extension AddNewNoteViewController : UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        indexOfSelectedCategoryByUser = row
+        isCategorySelected = true
+        currentCategory = categoryArray?[row]
     }
 }
+
 extension AddNewNoteViewController : UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -85,5 +137,4 @@ extension AddNewNoteViewController : UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categoryArray?[row].categoryName ?? "No Categories Yet"
     }
-    
 }
