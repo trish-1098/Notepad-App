@@ -16,6 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="RF3-Ty-1je">
+                            <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Add New Category"/>
+                            <connections>
+                                <action selector="addNewCategoryPressed:" destination="w9x-kS-Jfx" eventType="touchUpInside" id="eSK-CT-tjv"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="noteCategoryCell" textLabel="74E-9k-OO7" style="IBUITableViewCellStyleDefault" id="r0r-Ps-47Z">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
@@ -43,12 +51,13 @@
                     <navigationItem key="navigationItem" title="Simply Note" id="l1J-Gd-FoZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="MyJ-nV-UJV">
                             <connections>
-                                <action selector="addCategoryPressed:" destination="w9x-kS-Jfx" id="tEL-Nf-O2N"/>
+                                <action selector="addNewNotePressed:" destination="w9x-kS-Jfx" id="tEL-Nf-O2N"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="gVe-Jz-TIp" kind="show" identifier="openNoteListSegue" id="aYs-tW-1ak"/>
+                        <segue destination="Vob-SD-uKv" kind="show" identifier="directlyAddNewNoteSegue" id="Joo-UR-S0y"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EUl-0x-IRX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -107,12 +116,12 @@
                     </navigationItem>
                     <connections>
                         <segue destination="06Y-tS-XgK" kind="show" identifier="editNoteSegue" id="JJj-ib-nMO"/>
-                        <segue destination="Vob-SD-uKv" kind="show" identifier="addNewNoteSegue" id="DlM-Oa-Umy"/>
+                        <segue destination="Vob-SD-uKv" kind="presentation" identifier="addNewNoteSegue" id="DlM-Oa-Umy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZc-xO-UfL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="629" y="118"/>
+            <point key="canvasLocation" x="607" y="447"/>
         </scene>
         <!--<- Note Title (Predefined/New Title) ->-->
         <scene sceneID="1wA-zL-i13">
@@ -193,10 +202,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4sC-DG-IRG">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="722"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="326"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jue-cT-OIw">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="722"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="326"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Note Title..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v2V-tl-cEp">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -207,14 +216,14 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a2t-VY-tzh">
-                                                <rect key="frame" x="0.0" y="50" width="414" height="612"/>
+                                                <rect key="frame" x="0.0" y="50" width="414" height="216"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="tUJ-7K-xth"/>
                                                 </constraints>
                                             </pickerView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZB-WV-2Ie">
-                                                <rect key="frame" x="0.0" y="662" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="266" width="414" height="60"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-f2-jAa">
                                                         <rect key="frame" x="152.5" y="9" width="109" height="42"/>
@@ -289,6 +298,9 @@
             <point key="canvasLocation" x="-1278" y="79"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Joo-UR-S0y"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
         <image name="note.text" catalog="system" width="128" height="106"/>

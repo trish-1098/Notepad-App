@@ -15,6 +15,7 @@ class NoteViewController: UITableViewController {
     
     var notesCategory : NoteCategory? {
         didSet {
+            print("<-- didSet Notes Category -->")
             loadNotes()
         }
     }
@@ -28,12 +29,17 @@ class NoteViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
+        let notesArrayObserver = notesArray?.observe(on: DispatchQueue.main, { (_) in
+            self.tableView.reloadData()
+        })
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         guard let navController = navigationController else {
             fatalError()
         }
+        print("<-- viewWillAppear Called -->")
         title = notesCategory?.categoryName
         navController.navigationBar.backgroundColor = ToolFunctionsAndConstants.convertToUIColor(from: (notesCategory?.categoryThemeColor)!)
         tableView.backgroundColor = GradientColor(.diagonal,
@@ -42,10 +48,13 @@ class NoteViewController: UITableViewController {
                                                     UIColor(hexString: notesCategory?.categoryThemeColor ?? "#000000")!,
                                                     .systemBackground
                                                   ])
-            
-        
-        tableView.reloadData()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("<-- viewDidAppear Called -->")
+    }
+    
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,7 +89,7 @@ class NoteViewController: UITableViewController {
     
     func loadNotes() {
         notesArray = notesCategory?.categoryNotes.sorted(byKeyPath: "noteTitle") // For Now (later by date created or last edited
-        print(notesArray)
+//        print(notesArray)
         self.tableView.reloadData()
     }
     
@@ -108,4 +117,5 @@ class NoteViewController: UITableViewController {
                                                     .systemBackground
                                                   ])
     }
+
 }

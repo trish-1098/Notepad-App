@@ -22,6 +22,33 @@ class NoteCategoryViewController: UITableViewController {
         tableView.rowHeight = 100
     }
 
+    @IBAction func addNewCategoryPressed(_ sender: UIButton) {
+        let newCategoryAlert = UIAlertController(title: "Add New Category", message: "Give it a name and choose it's theme", preferredStyle: .alert)
+        newCategoryAlert.addTextField { (categoryNameTextField) in
+            categoryNameTextField.placeholder = "Enter Name"
+        }
+        newCategoryAlert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (_) in
+            let newCategoryName = newCategoryAlert.textFields?[0].text
+            let newCategory = NoteCategory()
+            newCategory.categoryName = newCategoryName!
+            newCategory.categoryThemeColor = UIColor.randomFlat().hexValue()
+//            if let numOfCategories = self.noteCategoryArray?.count {
+//                if numOfCategories > 1 {
+//                    let newCategoryColor = ComplementaryFlatColorOf(UIColor(hexString: self.noteCategoryArray![(numOfCategories - 1)].categoryThemeColor)!)
+//                    newCategory.categoryThemeColor = newCategoryColor.hexValue()
+//                } else {
+//                    // Later add Shared Preferences in the top for choosing theme and a new button to add categories
+//                     // FOR NOW
+//                }
+//            }
+            
+            self.saveNewNoteCategory(newCategory)
+        }))
+        newCategoryAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
+            newCategoryAlert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(newCategoryAlert, animated: true, completion: nil)
+    }
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,43 +93,26 @@ class NoteCategoryViewController: UITableViewController {
     }
     
     
-    @IBAction func addCategoryPressed(_ sender: UIBarButtonItem) {
-        let newCategoryAlert = UIAlertController(title: "Add New Category", message: "Give it a name and choose it's theme", preferredStyle: .alert)
-        newCategoryAlert.addTextField { (categoryNameTextField) in
-            categoryNameTextField.placeholder = "Enter Name"
-        }
-        newCategoryAlert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (_) in
-            let newCategoryName = newCategoryAlert.textFields?[0].text
-            let newCategory = NoteCategory()
-            newCategory.categoryName = newCategoryName!
-            newCategory.categoryThemeColor = UIColor.randomFlat().hexValue()
-//            if let numOfCategories = self.noteCategoryArray?.count {
-//                if numOfCategories > 1 {
-//                    let newCategoryColor = ComplementaryFlatColorOf(UIColor(hexString: self.noteCategoryArray![(numOfCategories - 1)].categoryThemeColor)!)
-//                    newCategory.categoryThemeColor = newCategoryColor.hexValue()
-//                } else {
-//                    // Later add Shared Preferences in the top for choosing theme and a new button to add categories
-//                     // FOR NOW
-//                }
-//            }
-            
-            self.saveNewNoteCategory(newCategory)
-        }))
-        newCategoryAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
-            newCategoryAlert.dismiss(animated: true, completion: nil)
-        }))
-        self.present(newCategoryAlert, animated: true, completion: nil)
+    @IBAction func addNewNotePressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "directlyAddNewNoteSegue", sender: self)
     }
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if  segue.identifier == "openNoteListSegue" {
+        if segue.identifier == "openNoteListSegue" {
             let destinationVC = segue.destination as! NoteViewController
             if let indexForCategoryPressed = tableView.indexPathForSelectedRow?.row {
                 if let noteCategorySelected = noteCategoryArray?[indexForCategoryPressed] {
                     destinationVC.notesCategory = noteCategorySelected
                     print(noteCategorySelected.categoryName)
+                }
+            }
+        } else if segue.identifier == "directlyAddNewNoteSegue" {
+            let destinationVC = segue.destination as! AddNewNoteViewController
+            if let indexForCategoryPressed = tableView.indexPathForSelectedRow?.row {
+                if let noteCategorySelected = noteCategoryArray?[indexForCategoryPressed] {
+                    destinationVC.isCategorySelected = false
                 }
             }
         }
