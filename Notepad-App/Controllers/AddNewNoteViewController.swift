@@ -31,7 +31,6 @@ class AddNewNoteViewController: UIViewController {
         noteCategoryPickerView.delegate = self
         noteCategoryPickerView.isUserInteractionEnabled = false
         
-        
 //        if !self.isCategorySelected {
 //            currentCategory = categoryArray?[0]
 //        }
