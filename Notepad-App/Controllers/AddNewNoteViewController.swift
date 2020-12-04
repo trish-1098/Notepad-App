@@ -13,7 +13,7 @@ class AddNewNoteViewController: UIViewController {
     
     @IBOutlet weak var newNoteTitleTextField: UITextField!
     @IBOutlet weak var noteCategoryPickerView: UIPickerView!
-    @IBOutlet weak var buttonBackgroundView: UIView!
+//    @IBOutlet weak var buttonBackgroundView: UIView!
     @IBOutlet weak var addNoteStackView: UIStackView!
     @IBOutlet weak var saveNoteButtonOutlet: UIButton!
     
@@ -40,18 +40,18 @@ class AddNewNoteViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        guard let navController = navigationController else {
+//        `guard let navController = navigationController else {
 //            fatalError()
-//        }
+//        }`
         if let currentCat = currentCategory {
             let themeColorOfThisView = UIColor(hexString: currentCategory?.categoryThemeColor ?? "#FFFFFF")
             //            navController.navigationBar.backgroundColor = themeColorOfThisView?.lighten(byPercentage: 0.9)
             //            navController.navigationBar.tintColor = ContrastColorOf(navController.navigationBar.backgroundColor!, returnFlat: true)
             
             addNoteStackView.backgroundColor = themeColorOfThisView
-            buttonBackgroundView.backgroundColor = themeColorOfThisView?.lighten(byPercentage: 0.9)
-            saveNoteButtonOutlet.tintColor =
-                ContrastColorOf((buttonBackgroundView.backgroundColor)!, returnFlat: true).lighten(byPercentage: 50)
+//            buttonBackgroundView.backgroundColor = themeColorOfThisView?.lighten(byPercentage: 0.9)
+//            saveNoteButtonOutlet.tintColor =
+//                ContrastColorOf((buttonBackgroundView.backgroundColor)!, returnFlat: true).lighten(byPercentage: 50)
             var categoryNameArray = [String]()
             categoryArray?.forEach({ (noteCategory) in
                 categoryNameArray.append(noteCategory.categoryName)
@@ -59,7 +59,7 @@ class AddNewNoteViewController: UIViewController {
             noteCategoryPickerView.selectRow((categoryNameArray.firstIndex(of: currentCat.categoryName) ?? 0), inComponent: 0, animated: true)
             noteCategoryPickerView.isUserInteractionEnabled = false
         } else {
-            
+            addNoteStackView.backgroundColor = UIColor(hexString: categoryArray?[0].categoryThemeColor ?? "#FFFFFF")
             noteCategoryPickerView.isUserInteractionEnabled = true
         }
     }
@@ -111,10 +111,15 @@ extension AddNewNoteViewController : UIPickerViewDelegate {
 //            navController.navigationBar.backgroundColor = themeColorOfThisView?.lighten(byPercentage: 0.9)
 //            navController.navigationBar.tintColor = ContrastColorOf(navController.navigationBar.backgroundColor!, returnFlat: true)
         
-        addNoteStackView.backgroundColor = themeColorOfThisView
-        buttonBackgroundView.backgroundColor = themeColorOfThisView?.lighten(byPercentage: 0.9)
+        addNoteStackView.superview?.backgroundColor = themeColorOfThisView
+//        buttonBackgroundView.backgroundColor = GradientColor(.topToBottom, frame: addNoteStackView.bounds, colors: [
+//            (themeColorOfThisView)!,
+//            .systemBackground
+//        ])
+            
         saveNoteButtonOutlet.tintColor =
-            ContrastColorOf((buttonBackgroundView.backgroundColor)!, returnFlat: true).lighten(byPercentage: 50)
+            ContrastColorOf((themeColorOfThisView?.lighten(byPercentage: 0.9))!, returnFlat: true)
+        
     }
 }
 
